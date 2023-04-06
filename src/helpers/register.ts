@@ -1,12 +1,19 @@
-async function tryRegister(username: string, password: string) {
-    const registerUrl = 'http://172.17.0.1:8080/api/register'
+import { registerUrl } from '../constants'
+
+async function tryRegister(origObj = {
+    email: string,
+    fullname: string,
+    mobileNo: string,
+    password: string,
+    password2: string
+}) {
     const response = await fetch(registerUrl, {
 	method: 'POST',
 	mode: 'cors',
 	headers: {
 	    'Content-Type': 'application/json'
 	},
-	body: JSON.stringify({username, password})
+	body: JSON.stringify(origObj)
     })
     return response.json()
 }

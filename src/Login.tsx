@@ -1,4 +1,5 @@
 import { useState } from 'react'
+import { Link } from 'react-router-dom'
 import { useAppDispatch } from './hooks'
 import { setAccessToken } from './reduxslice/authsystemSlice'
 import { tryLogin } from './helpers/login'
@@ -29,6 +30,7 @@ function Login() {
         <label>Password: <input name="password" onChange={e => setPassword(e.target.value)} /></label>
       </div>
       <button onClick={ handleLogin }>Login</button>
+      <p>Don't have an account? <Link to="/register">click here to register</Link></p>
     </div>
   )
 }
