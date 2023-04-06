@@ -1,13 +1,22 @@
 import { useState } from 'react'
-import { tryLogin } from './helpers/login.ts'
+import { useAppDispatch } from './hooks'
+import { setAccessToken } from './reduxslice/authsystemSlice'
+import { tryLogin } from './helpers/login'
 
 function Login() {
+
+  const dispatch = useAppDispatch()
   const [username, setUsername] = useState('')
   const [password, setPassword] = useState('')
 
   async function handleLogin(e) {
     e.preventDefault()
     const response = await tryLogin(username, password)
+    if (response.token) {
+      dispatch(setAccessToken(response.token))
+    } else {
+      dispatch(setAccessToken(''))
+    }
     console.log(response)
   }
   
