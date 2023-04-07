@@ -16,7 +16,7 @@ async function tryLoginEmail(email: string, password: string): LoginSuccess | Lo
 	    method: 'POST',
 	    mode: 'cors',
 	    headers: {
-		'Content-Type': 'application.json'
+		'Content-Type': 'application/json'
 	    },
 	    body: JSON.stringify({email, password})
 	})
@@ -39,7 +39,7 @@ async function tryLoginPhone(phone: string, password: string): LoginSuccess | Lo
 	    method: 'POST',
 	    mode: 'cors',
 	    headers: {
-		'Content-Type': 'application.json'
+		'Content-Type': 'application/json'
 	    },
 	    body: JSON.stringify({phone, password})
 	})
@@ -54,9 +54,21 @@ async function tryLoginPhone(phone: string, password: string): LoginSuccess | Lo
     }
 }
 
+async function resetPasswordByEmail(email: string) {
+    fetch(resetPasswordEmailUrl, {
+	method: 'POST',
+	mode: 'cors',
+	headers: {
+	    'Content-Type': 'application/json'
+	},
+	body: JSON.stringify({email})
+    })
+}
+
 export type LoginSuccess = LoginSucces
 export type LoginFail = LoginFail
 export {
     tryLoginEmail,
-    tryLoginPhone
+    tryLoginPhone,
+    resetPasswordByEmail
 }

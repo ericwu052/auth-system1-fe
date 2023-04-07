@@ -1,11 +1,13 @@
 import { createSlice } from '@reduxjs/toolkit'
 
 interface AuthSystemState {
-    accessToken: string
+    accessToken: string,
+    email: string
 }
 
 const initialState: AuthSystemState = {
-    accessToken: ''
+    accessToken: '',
+    email: ''
 }
 
 export const authSystemSlice = createSlice({
@@ -14,10 +16,13 @@ export const authSystemSlice = createSlice({
     reducers: {
 	setAccessToken: (state, action: PayloadAction<string>) => {
 	    state.accessToken = action.payload
+	},
+	setEmailAction: (state, action: PayloadAction<string>) => {
+	    state.email = action.payload
 	}
     }
 })
 
-export const { setAccessToken } = authSystemSlice.actions
+export const { setAccessToken, setEmailAction } = authSystemSlice.actions
 
 export default authSystemSlice.reducer
