@@ -2,18 +2,18 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from './hooks'
 import { setAccessToken } from './reduxslice/authsystemSlice'
-import { tryLoginEmail } from './helpers/login'
+import { tryLoginPHone } from './helpers/login'
 
-function Login() {
+function LoginPhone() {
 
   const dispatch = useAppDispatch()
   const navigate = useNavigate()
-  const [email, setEmail] = useState('')
+  const [phone, setPhone] = useState('')
   const [password, setPassword] = useState('')
 
   async function handleLogin(e) {
     e.preventDefault()
-    const response = await tryLoginEmail(email, password)
+    const response = await tryLoginPhone(phone, password)
     if (response.isSuccessful) {
       dispatch(setAccessToken(response.token))
       navigate('/dashboard')
@@ -26,16 +26,16 @@ function Login() {
   return (
     <div className="Login">
       <div>
-        <label>Email: <input name="email" onChange={e => setEmail(e.target.value)}/></label>
+        <label>Mobile Phone: <input name="mobileNo" onChange={e => setPhone(e.target.value)}/></label>
       </div>
       <div>
         <label>Password: <input name="password" onChange={e => setPassword(e.target.value)} /></label>
       </div>
       <button onClick={ handleLogin }>Login</button>
-      <p>Want to login by phone? <Link to="/login-phone">Click here to login by phone</Link></p>
+      <p>Want to login by email? <Link to="/login">Click here to login by email</Link></p>
       <p>Don't have an account? <Link to="/register">click here to register</Link></p>
     </div>
   )
 }
 
-export default Login
+export default LoginPhone

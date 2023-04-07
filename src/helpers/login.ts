@@ -20,9 +20,10 @@ async function tryLoginEmail(email: string, password: string): LoginSuccess | Lo
 	    },
 	    body: JSON.stringify({email, password})
 	})
-	if (response.token) {
-	    const response: LoginSuccess = { isSuccessful: true, token: response.token }
-	    return response
+	const responseJson = await response.json()
+	console.log(responseJson)
+	if (responseJson.token) {
+	    return { isSuccessful: true, token: responseJson.token } as LoginSuccess
 	} else {
 	    const response: LoginFailed = { isSuccessful: false, err: Error('wrong password') }
 	    return response
