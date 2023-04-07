@@ -1,16 +1,40 @@
-async function tryLogin(username: string, password: string) {
-    const loginUrl = 'http://172.17.0.1:8080/api/login'
-    const response = await fetch(loginUrl, {
-	method: 'POST',
-	mode: 'cors',
-	headers: {
-	    'Content-Type': 'application.json'
-	},
-	body: JSON.stringify({username, password})
-    })
-    return response.json()
+import { loginUrl } from '../constants'
+
+interface LoginSuccess {
+    isSuccessful: boolean,
+    token: string
 }
 
+interface LoginFail {
+    isSuccessful: boolean,
+    err: Error
+}
+
+async function tryLoginEmail(email: string, password: string): LoginSuccess | LoginFail {
+    try {
+	const response = await fetch(loginUrl, {
+	    method: 'POST',
+	    mode: 'cors',
+	    headers: {
+		'Content-Type': 'application.json'
+	    },
+	    body: JSON.stringify({email, password})
+	})
+	if (response.token) {
+	    const response: LoginSuccess = { isSuccessful: true, token: response.token }
+	    return response
+	} else {
+	    const response: LoginFailed = { isSuccessful: false, err: Error('wrong password') }
+	    return response
+	}
+    } catch (e) {
+	const response: LoginFailed = { isSuccessful: false, err: e }
+	return response
+    }
+}
+
+export type LoginSuccess = LoginSucces
+export type LoginFail = LoginFail
 export {
-    tryLogin
+    tryLoginEmail
 }

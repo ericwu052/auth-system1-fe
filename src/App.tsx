@@ -3,10 +3,12 @@ import Demo from './Demo'
 import Login from './Login'
 import Register from './Register'
 import Counter from './Counter'
+import Nav from './Nav'
 
 function App() {
   return (
     <Router>
+      <Nav/>
       <Routes>
         <Route exact path="/" element={<Demo/>}></Route>
 	<Route exact path="/demo" element={<Demo/>}></Route>
