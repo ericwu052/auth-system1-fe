@@ -16,7 +16,7 @@ async function requestForgotPasswordRequestByEmail(obj: EmailInput) {
     })
 }
 
-async function tryUnlockByEmail(allArg = {email: string, otp: string}): boolean {
+async function tryUnlockByEmail(allArg = {email: string, otp: string}): Promise<boolean> {
     const response = await fetch(unlockByEmailUrl, {
 	method: 'POST',
 	mode: 'cors',

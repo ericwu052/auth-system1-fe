@@ -1,5 +1,6 @@
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppSelector, useAppDispatch } from './hooks'
+import { setAccessToken } from './reduxslice/authsystemSlice'
 
 function Dashboard() {
   const token = useAppSelector((state) => state.authSystem.accessToken)

@@ -24,7 +24,7 @@ function ForgotPassword() {
       <div><label>Email: <input name="email" onChange={e => setEmail(e.target.value) }/></label></div>
       <button onClick={handleForgotPasswordRequestByEmail}>Reset</button>
       
-      <p>Want to use phone number? <Link href="/forgot-password">Click here to request reset password by phone number</Link></p>
+      <p>Want to use phone number? <Link to="/forgot-password">Click here to request reset password by phone number</Link></p>
     </div>
   )
 }

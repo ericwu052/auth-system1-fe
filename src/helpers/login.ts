@@ -10,7 +10,7 @@ interface LoginFail {
     err: Error
 }
 
-async function tryLoginEmail(email: string, password: string): LoginSuccess | LoginFail {
+async function tryLoginEmail(email: string, password: string): Promise<LoginSuccess | LoginFail> {
     try {
 	const response = await fetch(loginUrl, {
 	    method: 'POST',
@@ -24,11 +24,11 @@ async function tryLoginEmail(email: string, password: string): LoginSuccess | Lo
 	if (responseJson.token) {
 	    return { isSuccessful: true, token: responseJson.token } as LoginSuccess
 	} else {
-	    const response: LoginFailed = { isSuccessful: false, err: Error('wrong password') }
+	    const response: LoginFail = { isSuccessful: false, err: Error('wrong password') }
 	    return response
 	}
     } catch (e) {
-	const response: LoginFailed = { isSuccessful: false, err: e }
+	const response: LoginFail = { isSuccessful: false, err: e }
 	return response
     }
 }
@@ -65,8 +65,6 @@ async function resetPasswordByEmail(email: string) {
     })
 }
 
-export type LoginSuccess = LoginSucces
-export type LoginFail = LoginFail
 export {
     tryLoginEmail,
     tryLoginPhone,
