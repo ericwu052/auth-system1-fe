@@ -1,4 +1,4 @@
-import { loginUrl } from '../constants'
+import { loginUrl, loginPhoneUrl } from '../constants'
 
 interface LoginSuccess {
     isSuccessful: boolean,
@@ -21,7 +21,6 @@ async function tryLoginEmail(email: string, password: string): LoginSuccess | Lo
 	    body: JSON.stringify({email, password})
 	})
 	const responseJson = await response.json()
-	console.log(responseJson)
 	if (responseJson.token) {
 	    return { isSuccessful: true, token: responseJson.token } as LoginSuccess
 	} else {
@@ -34,8 +33,30 @@ async function tryLoginEmail(email: string, password: string): LoginSuccess | Lo
     }
 }
 
+async function tryLoginPhone(phone: string, password: string): LoginSuccess | LoginFail {
+    try {
+	const response = await fetch(loginPhoneUrl, {
+	    method: 'POST',
+	    mode: 'cors',
+	    headers: {
+		'Content-Type': 'application.json'
+	    },
+	    body: JSON.stringify({phone, password})
+	})
+	const responseJson = await response.json()
+	if (responseJson.token) {
+	    return { isSuccessful: true, token: responseJson.token } as LoginSuccess
+	} else {
+	    return { isSuccessful: false, err: Error('wrong password') } as LoginFailed
+	}
+    } catch (e) {
+	return { isSuccessful: false, err: e } as LoginFailed
+    }
+}
+
 export type LoginSuccess = LoginSucces
 export type LoginFail = LoginFail
 export {
-    tryLoginEmail
+    tryLoginEmail,
+    tryLoginPhone
 }

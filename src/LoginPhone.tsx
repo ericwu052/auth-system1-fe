@@ -2,7 +2,7 @@ import { useState } from 'react'
 import { Link, useNavigate } from 'react-router-dom'
 import { useAppDispatch } from './hooks'
 import { setAccessToken } from './reduxslice/authsystemSlice'
-import { tryLoginPHone } from './helpers/login'
+import { tryLoginPhone } from './helpers/login'
 
 function LoginPhone() {
 
